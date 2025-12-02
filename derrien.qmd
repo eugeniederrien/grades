@@ -150,6 +150,18 @@ kable(median_age_per_group, caption = "Median Age of Students per Group", align 
 ```
 
 
+## Question 9 
+
+```{r}
+kable(students %>%
+  group_by(group) %>%
+  slice_max(order_by = age, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  select(id, sex, age, group) %>% 
+  arrange(desc(age))
+  , caption = "Oldest Student in Each Group", 
+  align = "l")
+```
 
 
 
