@@ -525,3 +525,14 @@ pass_year <- avg_grades_wide %>%
   select(id, group, final_grade, pass)
 ```
 
+## Question 27 
+
+```{r}
+students_not_pass_high_grade <- pass_year %>%
+  filter(!pass, final_grade >= 10) %>%
+  summarise(n_students = n())
+
+students_not_pass_high_grade %>%
+  knitr::kable(caption = "Number of students who do not pass but have final grade >= 10")
+```
+
