@@ -459,7 +459,37 @@ ggplot(final_grades, aes(x = factor(group), y = final_grade, fill = factor(group
   theme_minimal()
 ```
 
-There is a bit of heterogeneity in the final grade between groups, with group 13 having the best mean final grade equal to 10.67 and, group 9 having the worst mean final grad, equal to 9.41. 
+There is a bit of heterogeneity in the final grades between groups, with group 13 having the best mean final grade equal to 10.67 and, group 9 having the worst mean final grad, equal to 9.41. 
 
+## Question 25
+
+```{r}
+ggplot(final_grades, aes(x = factor(group), y = final_grade, fill = sex)) +
+  geom_violin(alpha = 0.6, position = position_dodge(width = 0.8)) +
+  geom_boxplot(width = 0.1, fill = "white", position = position_dodge(width = 0.8)) +
+  labs(
+    title = "Final Grades by Group and Sex",
+    x = "Group",
+    y = "Final Grade",
+    fill = "Sex"
+  ) +
+  scale_fill_discrete(labels = c("F" = "Female", "M" = "Male")) +
+  theme_minimal()
+
+
+final_grades_summary2 <- final_grades %>%
+  group_by(group, sex) %>%
+  summarise(
+    mean_grade = mean(final_grade),
+    median_grade = median(final_grade),
+    sd_grade = sd(final_grade),
+    n_students = n(),
+    .groups = "drop"
+  )
+
+knitr::kable(final_grades_summary2, caption = "Summary of Final Grades by Group and Sex")
+```
+
+We observe that within each group, there is not a lot of heterogeneity in the final grades between men and women. 
 
 
