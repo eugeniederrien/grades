@@ -35,7 +35,7 @@ courses <- read_csv(here("data", "courses.csv"))
 #| message: false
 courses <- courses %>%
   rename(
-    `course identifier` = course_id,
+    identifier = course_id,
     `number of grades` = nb_grades
   ) %>%
   arrange(course)
@@ -71,17 +71,11 @@ grades <- read_delim(here("data", "grades.csv"),
   delim = ":",
   na = "_", 
    col_types = cols(
-                    id = col_integer  #I load id as an integer since I did the same for students
+                    id = col_integer()  #I load id as an integer since I did the same for students
   ))
 
 spec(grades)
 
-# I choose to rename course_id as i did for the courses databases for simplicity and clarity
-
-grades <- grades %>%
-  rename(
-    `course identifier` = course_id
-  )
 ```
 
 ## Question 5
@@ -178,6 +172,30 @@ n_grades <- grades %>%
 paste("The data set contains", n_grades, "grades.")
 ```
 
+## Question 11 
+
+```{r}
+grades_courses <- grades %>%
+  left_join(courses, by = c("course_id" = "identifier"))
+
+grades_courses_students <- grades_courses %>%
+  left_join(students %>% select(id, group), by = "id")
+
+avg_grades <- grades_courses_students %>%
+  filter(course == "Warfare and Diplomacy", !is.na(grade)) %>%
+  group_by(group) %>%
+  summarise(avg_grade = mean(grade)) %>%
+  ungroup()
+
+ggplot(avg_grades, aes(x = group, y = avg_grade)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Average Grade in 'Warfare and Diplomacy' by Group",
+    x = "Group",
+    y = "Average Grade"
+  ) +
+  theme_minimal()
+```
 
 
 
