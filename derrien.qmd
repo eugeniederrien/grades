@@ -398,7 +398,24 @@ correlation_by_group %>%
   knitr::kable(caption = "Correlation between 'Social Organization and Governance' and 'Hunting and Gathering Skills' by group")
 ```
 
+## Question 22 
 
+```{r}
+# The group with the most extreme correlation is group 13
+
+ggplot(avg_grades_wide %>%
+  filter(group == 13), 
+       aes(x = `Hunting and Gathering Skills`, y = `Social Organization and Governance`)) +
+  geom_point(alpha = 0.6, color = "steelblue", size = 3) +
+  geom_smooth(method = "lm", se = TRUE, color = "darkred", linetype = "dashed") +
+  labs(
+    title = paste0("Social Organization and Governance as a function of Hunting and Gathering Skills in group 13"),
+    x = "Average Grade in Hunting and Gathering Skills",
+    y = "Average Grade in Social Organization and Governance"
+  ) +
+  theme_minimal(base_size = 14)
+```
+For group 13, there is a strong positive correlation between  the average grades in Astronomy and Celestial Navigation and the average grades in Warfare and Diplomacy.
 
 
 
