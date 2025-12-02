@@ -78,6 +78,25 @@ grades <- grades %>%
   )
 ```
 
+## Question 5
+
+```{r}
+ggplot(
+  students %>%
+    group_by(group) %>%
+    summarise(n_students = n()) %>% 
+    ungroup(),
+  aes(x = group, y = n_students)
+) +
+  geom_col() +
+  labs(
+    title = "Number of Students per Group",
+    x = "Group",
+    y = "Number of Students"
+  ) +
+  theme_minimal()
+
+```
 
 
 
