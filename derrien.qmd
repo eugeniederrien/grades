@@ -575,4 +575,24 @@ most_responsible_course <- course_failure_count %>%
 ```
 The course most responsible for student failure due to grades below 5 is Astronomy and Celestial Navigation. 
 
+## Question 30
+
+```{r}
+pass_with_age <- pass_year %>%
+  left_join(students %>% select(id, age), by = "id")
+
+pass_rate_by_age <- pass_with_age %>%
+  group_by(age) %>%
+  summarise(pass_rate = mean(pass) * 100, n_students = n(), .groups = "drop")
+
+ggplot(pass_rate_by_age, aes(x = age, y = pass_rate)) +
+  geom_line(color = "steelblue", size = 1) +
+  geom_point(color = "darkred", size = 2) +
+  labs(
+    title = "Success Rate as a Function of Student Age",
+    x = "Age (years)",
+    y = "Pass Rate (%)"
+  ) +
+  theme_minimal(base_size = 14)
+```
 
