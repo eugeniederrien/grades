@@ -362,6 +362,21 @@ avg_grades_wide %>%
 ```
 
 
+## Question 20
+
+```{r}
+ggplot(avg_grades_wide, 
+       aes(x = `Astronomy and Celestial Navigation`, 
+           y = `Warfare and Diplomacy`)) +
+  geom_point(alpha = 0.6, color = "steelblue", size = 3) +
+  geom_smooth(method = "lm", se = TRUE, color = "darkred", linetype = "dashed") +
+  labs(
+    title = "Average Grades: 'Warfare and Diplomacy' as a function of 'Astronomy and Celestial Navigation'",
+    x = "Average Grade in Astronomy and Celestial Navigation",
+    y = "Average Grade in Warfare and Diplomacy"
+  ) +
+  theme_minimal(base_size = 14)
+```
 
 
 
