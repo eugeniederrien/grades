@@ -560,4 +560,19 @@ ggplot(pass_rate_group, aes(x = factor(group), y = pass_rate, fill = factor(grou
 
 There is a lot of heterogeneity in the pass rate between groups. While 50% of students of group 13 passed, 0% of the students of group 9 passed !
 
+## Question 29 
+
+```{r}
+course_failure_count <- avg_grades_per_course %>%
+  filter(avg_grade < 5) %>%
+  group_by(course) %>%
+  summarise(n_students_fail = n(), .groups = "drop") %>%
+  arrange(desc(n_students_fail))
+
+most_responsible_course <- course_failure_count %>%
+  slice_head(n = 1)
+
+```
+The course most responsible for student failure due to grades below 5 is Astronomy and Celestial Navigation. 
+
 
