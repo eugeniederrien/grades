@@ -135,6 +135,20 @@ ggplot(students, aes(x = age)) +
 
 ```
 
+## Question 8 
+
+```{r}
+median_age_per_group <- students %>%
+  group_by(group) %>%
+  summarise(median_age = as.integer(round(median(age)))) %>%  # We round the median to an integer
+  ungroup()
+
+typeof(median_age_per_group$median_age)
+
+kable(median_age_per_group, caption = "Median Age of Students per Group", align = "l")
+
+```
+
 
 
 
