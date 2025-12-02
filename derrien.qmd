@@ -17,6 +17,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(knitr)
+library(lubridate)
 ```
 
 ## Question 1 
@@ -117,6 +118,22 @@ ggplot(students %>%
   theme_minimal()
 ```
 
+## Question 7
+
+```{r}
+students <- students %>%
+  mutate(age = round(time_length(today() - birth_date, unit = "year")))
+
+ggplot(students, aes(x = age)) +
+  geom_histogram(binwidth = 1, fill = "slateblue", color = "black") +
+  labs(
+    title = "Distribution of Students' Age",
+    x = "Age (years)",
+    y = "Number of Students"
+  ) +
+  theme_minimal()
+
+```
 
 
 
