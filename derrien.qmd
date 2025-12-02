@@ -287,4 +287,21 @@ env_stewardship_grades %>%
   knitr::kable(caption = "Number of grades per student in 'Environmental Stewardship'", align = "l")
 ```
 
+## Question 16 
+
+```{r}
+grades_distribution <- env_stewardship_grades %>%
+  group_by(n_grades) %>%
+  summarise(n_students = n()) %>%
+  ungroup()
+
+ggplot(grades_distribution, aes(x = n_grades, y = n_students)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Distribution of Number of Grades in 'Environmental Stewardship'",
+    x = "Number of Grades",
+    y = "Number of Students"
+  ) +
+  theme_minimal()
+```
 
