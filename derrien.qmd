@@ -305,3 +305,17 @@ ggplot(grades_distribution, aes(x = n_grades, y = n_students)) +
   theme_minimal()
 ```
 
+## Question 17
+
+```{r}
+ggplot(env_stewardship_grades, aes(x = factor(group), y = n_grades, fill = factor(group))) +
+  geom_boxplot() +
+  labs(
+    title = "Number of Grades in 'Environmental Stewardship' by Group",
+    x = "Group",
+    y = "Number of Grades",
+    fill = "Group"
+  ) +
+  theme_minimal()
+```
+
