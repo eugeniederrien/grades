@@ -4,3 +4,28 @@ author: "Eugénie Derrien"
 format: html
 ---
 
+```{r}
+#| message: false
+here::i_am("grades.Rproj")
+library(here)
+library(readr)
+```
+
+```{r}
+#| message: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+## Question 1 
+
+```{r}
+courses <- read_csv(here("data", "courses.csv"))
+```
+
+
+
+
+
+
