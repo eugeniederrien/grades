@@ -98,5 +98,32 @@ ggplot(
 
 ```
 
+## Question 6 
+
+```{r}
+ggplot(students %>%
+  group_by(group, sex) %>%
+  summarise(n_students = n()) %>%
+  ungroup()
+  , aes(x = group, y = n_students, fill = sex)) +
+  geom_col() +
+  labs(
+    title = "Gender Balance per Group",
+    x = "Group",
+    y = "Number of Students",
+    fill = "Sex"
+  ) +
+  scale_fill_discrete(labels = c("F" = "Female", "M" = "Male")) +
+  theme_minimal()
+```
+
+
+
+
+
+
+
+
+
 
 
