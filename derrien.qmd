@@ -4,6 +4,8 @@ author: "Eugénie Derrien"
 format: html
 ---
 
+Link to the github repository : https://github.com/eugeniederrien/grades
+
 ```{r}
 #| message: false
 here::i_am("grades.Rproj")
@@ -23,12 +25,14 @@ library(lubridate)
 ## Question 1 
 
 ```{r}
+#| message: false
 courses <- read_csv(here("data", "courses.csv"))
 ```
 
 ## Question 2 
 
 ```{r}
+#| message: false
 courses <- courses %>%
   rename(
     `course identifier` = course_id,
@@ -46,6 +50,7 @@ kable(
 ## Question 3
 
 ```{r}
+#| message: false
 students <- read_delim(here("data", "students.csv"), 
                         col_types = cols(
                     id = col_integer(),
@@ -163,6 +168,15 @@ kable(students %>%
   align = "l")
 ```
 
+## Question 10
+
+```{r}
+n_grades <- grades %>%
+  filter(!is.na(grade)) %>%
+  nrow()
+
+paste("The data set contains", n_grades, "grades.")
+```
 
 
 
