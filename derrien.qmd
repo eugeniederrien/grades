@@ -536,3 +536,28 @@ students_not_pass_high_grade %>%
   knitr::kable(caption = "Number of students who do not pass but have final grade >= 10")
 ```
 
+## Question 28 
+
+```{r}
+pass_rate_group <- pass_year %>%
+  group_by(group) %>%
+  summarise(
+    pass_rate = mean(pass) * 100,  # in percentage
+    n_students = n(),
+    .groups = "drop"
+  )
+
+ggplot(pass_rate_group, aes(x = factor(group), y = pass_rate, fill = factor(group))) +
+  geom_col() +
+  labs(
+    title = "Pass Rate by Group",
+    x = "Group",
+    y = "Pass Rate (%)",
+    fill = "Group"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+There is a lot of heterogeneity in the pass rate between groups. While 50% of students of group 13 passed, 0% of the students of group 9 passed !
+
+
