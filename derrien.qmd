@@ -493,3 +493,35 @@ knitr::kable(final_grades_summary2, caption = "Summary of Final Grades by Group 
 We observe that within each group, there is not a lot of heterogeneity in the final grades between men and women. 
 
 
+## Question 26
+
+```{r}
+# Average grade per course is already in avg_grades_wide
+
+# Average grade per trimester
+avg_per_trimester <- grades_courses_students %>%
+  filter(!is.na(grade)) %>%
+  group_by(id, trimester) %>%
+  summarise(trimester_avg = mean(grade), .groups = "drop")
+
+# Determine if student passes
+
+pass_year <- avg_grades_wide %>%
+  rowwise() %>%
+  mutate(
+    min_course_grade = min(c_across(-c(id, group, sex)), na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  left_join(
+    avg_per_trimester %>%
+      group_by(id) %>%
+      summarise(min_trimester_avg = min(trimester_avg), .groups = "drop"),
+    by = "id"
+  ) %>%
+  mutate(pass = (min_course_grade >= 5) & (min_trimester_avg >= 10)) %>%
+  rowwise() %>%
+  mutate(final_grade = mean(c_across(-c(id, group, sex, min_course_grade, min_trimester_avg, pass)), na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(id, group, final_grade, pass)
+```
+
