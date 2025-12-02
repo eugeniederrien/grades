@@ -276,7 +276,15 @@ ggplot(grades_courses_students %>%
 ## Question 15 
 
 ```{r}
+env_stewardship_grades <- grades_courses_students %>%
+  filter(!is.na(grade), course == "Environmental Stewardship") %>%
+  group_by(id, group) %>%
+  summarise(n_grades = n()) %>%
+  ungroup()
 
+env_stewardship_grades %>%
+  slice_tail(n = 5) %>%
+  knitr::kable(caption = "Number of grades per student in 'Environmental Stewardship'", align = "l")
 ```
 
 
