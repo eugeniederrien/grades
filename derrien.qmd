@@ -236,6 +236,47 @@ summary_stats <- grades_per_student %>%
 knitr::kable(summary_stats, caption = "Summary statistics of number of grades per student")
 ```
 
+## Question 14
 
+```{r}
+ggplot(grades_courses_students %>%
+  filter(!is.na(grade)) %>%
+  group_by(id, sex) %>%
+  summarise(n_grades = n()) %>%
+  ungroup()
+  , aes(x = sex, y = n_grades, fill = sex)) +
+  geom_boxplot() +
+  labs(
+    title = "Distribution of Number of Grades by Sex",
+    x = "Sex",
+    y = "Number of Grades",
+    fill = "Sex"
+  ) +
+  scale_fill_discrete(labels = c("F" = "Female", "M" = "Male")) +
+  theme_minimal()
+
+ggplot(grades_courses_students %>%
+  filter(!is.na(grade)) %>%
+  group_by(id, sex) %>%
+  summarise(n_grades = n()) %>%
+  ungroup(), aes(x = n_grades, fill = sex, color = sex)) +
+  geom_density(alpha = 0.3) +
+  labs(
+    title = "Density of Number of Grades by Sex",
+    x = "Number of Grades",
+    y = "Density",
+    fill = "Sex",
+    color = "Sex"
+  ) +
+  scale_fill_discrete(labels = c("F" = "Female", "M" = "Male")) +
+  scale_color_discrete(labels = c("F" = "Female", "M" = "Male")) +
+  theme_minimal()
+```
+
+## Question 15 
+
+```{r}
+
+```
 
 
