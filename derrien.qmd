@@ -16,6 +16,7 @@ library(readr)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(knitr)
 ```
 
 ## Question 1 
@@ -24,6 +25,22 @@ library(tidyr)
 courses <- read_csv(here("data", "courses.csv"))
 ```
 
+## Question 2 
+
+```{r}
+courses <- courses %>%
+  rename(
+    identifier = course_id,
+    `number of grades` = nb_grades
+  ) %>%
+  arrange(course)
+
+kable(
+  courses,
+  caption = "Courses (sorted alphabetically)",
+  align = "l"
+)
+```
 
 
 
