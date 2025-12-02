@@ -179,7 +179,7 @@ grades_courses <- grades %>%
   left_join(courses, by = c("course_id" = "identifier"))
 
 grades_courses_students <- grades_courses %>%
-  left_join(students %>% select(id, group), by = "id")
+  left_join(students %>% select(id, group, sex), by = "id")
 
 avg_grades <- grades_courses_students %>%
   filter(course == "Warfare and Diplomacy", !is.na(grade)) %>%
@@ -212,6 +212,29 @@ ggplot(grades_courses_students %>% filter(!is.na(grade)),
   theme_minimal()
 ```
 
+## Question 13 
+
+```{r}
+grades_per_student <- grades_courses_students %>%
+  filter(!is.na(grade)) %>%
+  group_by(id, group, sex) %>%
+  summarise(n_grades = n()) %>%
+  ungroup()
+
+grades_per_student %>%
+  slice_tail(n = 5) %>%
+  knitr::kable(caption = "Sample of number of grades per student")
+
+summary_stats <- grades_per_student %>%
+  summarise(
+    min_grades = min(n_grades),
+    max_grades = max(n_grades),
+    avg_grades = round(mean(n_grades), 2),
+    median_grades = median(n_grades)
+  )
+
+knitr::kable(summary_stats, caption = "Summary statistics of number of grades per student")
+```
 
 
 
