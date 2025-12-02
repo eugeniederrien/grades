@@ -341,6 +341,25 @@ ggplot(env_stewardship_grades2, aes(x = factor(group), y = n_grades, fill = sex)
   theme_minimal()
 ```
 
+##Question 19 
+
+```{r}
+avg_grades_per_course <- grades_courses_students %>%
+  filter(!is.na(grade)) %>%
+  group_by(id, group, course) %>%
+  summarise(avg_grade = mean(grade), .groups = "drop")
+
+avg_grades_wide <- avg_grades_per_course %>%
+  pivot_wider(
+    names_from = course,
+    values_from = avg_grade
+  )
+
+avg_grades_wide %>%
+  select(id, group, `Art and Symbolism`, `Astronomy and Celestial Navigation`) %>%
+  slice_head(n = 5) %>%
+  knitr::kable(caption = "Sample of average grades per student (2 courses shown)")
+```
 
 
 
