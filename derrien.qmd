@@ -319,3 +319,33 @@ ggplot(env_stewardship_grades, aes(x = factor(group), y = n_grades, fill = facto
   theme_minimal()
 ```
 
+##Question 18
+
+```{r}
+# We create a new database for environmental stewardship course that contains the variable sex
+env_stewardship_grades2 <- grades_courses_students %>%
+  filter(!is.na(grade), course == "Environmental Stewardship") %>%
+  group_by(id, group, sex) %>%
+  summarise(n_grades = n()) %>%
+  ungroup()
+
+ggplot(env_stewardship_grades2, aes(x = factor(group), y = n_grades, fill = sex)) +
+  geom_boxplot(position = position_dodge(width = 0.8)) +  
+  labs(
+    title = "Number of Grades in 'Environmental Stewardship' by Group and Sex",
+    x = "Group",
+    y = "Number of Grades",
+    fill = "Sex"
+  ) +
+  scale_fill_discrete(labels = c("F" = "Female", "M" = "Male")) +
+  theme_minimal()
+```
+
+
+
+
+
+
+
+
+
