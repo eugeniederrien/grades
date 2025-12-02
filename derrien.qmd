@@ -197,6 +197,20 @@ ggplot(avg_grades, aes(x = group, y = avg_grade)) +
   theme_minimal()
 ```
 
+## Question 12
+
+```{r}
+ggplot(grades_courses_students %>% filter(!is.na(grade)), 
+       aes(x = factor(trimester), y = grade, fill = factor(trimester))) +
+  geom_boxplot() +
+  labs(
+    title = "Distribution of Grades by Trimester",
+    x = "Trimester",
+    y = "Grade",
+    fill = "Trimester"
+  ) +
+  theme_minimal()
+```
 
 
 
