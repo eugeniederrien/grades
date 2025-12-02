@@ -432,4 +432,34 @@ final_grades %>%
   knitr::kable(caption = "Top 5 students by final grade")
 ```
 
+## Question 24 
+
+```{r}
+final_grades_summary <- final_grades %>%
+  group_by(group) %>%
+  summarise(
+    mean_grade = mean(final_grade),
+    median_grade = median(final_grade),
+    sd_grade = sd(final_grade),
+    n_students = n(),
+    .groups = "drop"
+  )
+
+knitr::kable(final_grades_summary, caption = "Summary of Final Grades by Group")
+
+ggplot(final_grades, aes(x = factor(group), y = final_grade, fill = factor(group))) +
+  geom_violin(alpha = 0.6) +
+  geom_boxplot(width = 0.1, fill = "white") +
+  labs(
+    title = "Final Grades by Group",
+    x = "Group",
+    y = "Final Grade",
+    fill = "Group"
+  ) +
+  theme_minimal()
+```
+
+There is a bit of heterogeneity in the final grade between groups, with group 13 having the best mean final grade equal to 10.67 and, group 9 having the worst mean final grad, equal to 9.41. 
+
+
 
